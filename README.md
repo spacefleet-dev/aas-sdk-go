@@ -1,0 +1,6 @@
+# AAS SDK Go
+
+
+# LICENSE
+
+MIT LICENSE

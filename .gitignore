@@ -1,2 +1,4 @@
 .DS_Store
 api/api.yaml
+api/merged.yaml
+api/models.yaml

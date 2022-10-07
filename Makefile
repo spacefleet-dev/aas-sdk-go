@@ -35,13 +35,18 @@ help:
 	@sed -n 's/^##//p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^/ /'
 
 api/api.yaml:
-	mkdir -p api
-	curl -L "https://app.swaggerhub.com/apiproxy/registry/BaSyx/basyx_asset_administration_shell_http_rest_api/v1?resolved=true&flatten=true&pretty=true" > api/api.yaml
+	curl -L "https://app.swaggerhub.com/apiproxy/registry/BaSyx/basyx_asset_administration_shell_repository_http_rest_api/v1?resolved=true&flatten=true&pretty=true" > api/api.yaml
+
+api/models.yaml:
+	curl -L https://github.com/admin-shell-io/aas-specs/raw/master/schemas/yaml/aas-openapi.yaml > api/models.yaml
+	cd api && git apply models.patch
+
+api/merged.yaml: api/api.yaml api/models.yaml
+	go run ./tools/merge.go ./api/models.yaml ./api/api.yaml > api/merged.yaml
 
 .PHONY: api
-api: api/api.yaml
-	mkdir -p api
-	./generate.sh
+api: api/merged.yaml
+	./tools/generate.sh
 	rm -rf \
 		api/.gitignore \
 		api/.openapi-generator \
@@ -52,6 +57,6 @@ api: api/api.yaml
 		api/README.md \
 		api/docs \
 		api/api
-	go mod tidy -compat=1.17
+	go mod tidy -compat=1.19
 	go fmt ./api/...
 

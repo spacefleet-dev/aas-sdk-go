@@ -1,0 +1,35 @@
+diff --git a/api/models.yaml b/api/models.yaml
+index 3e2aef8..313db03 100644
+--- a/api/models.yaml
++++ b/api/models.yaml
+@@ -801,4 +801,28 @@ components:
+           $ref: '#/components/schemas/Reference'
+       required:
+         - value
+-        - valueId
+\ No newline at end of file
++        - valueId
++    ISubmodelElement:
++      oneOf:
++      - $ref: "#/components/schemas/AnnotatedRelationshipElement"
++      - $ref: "#/components/schemas/BasicEventElement"
++      - $ref: "#/components/schemas/Blob"
++      - $ref: "#/components/schemas/Capability"
++      - $ref: "#/components/schemas/DataElement"
++      - $ref: "#/components/schemas/Entity"
++      - $ref: "#/components/schemas/EventElement"
++      - $ref: "#/components/schemas/File"
++      - $ref: "#/components/schemas/MultiLanguageProperty"
++      - $ref: "#/components/schemas/Operation"
++      - $ref: "#/components/schemas/Property"
++      - $ref: "#/components/schemas/Range"
++      - $ref: "#/components/schemas/ReferenceElement"
++      - $ref: "#/components/schemas/RelationshipElement"
++      - $ref: "#/components/schemas/SubmodelElementCollection"
++      - $ref: "#/components/schemas/SubmodelElementList"
++      discriminator:
++        propertyName: modelType
++        mapping:
++          Capability: "#/components/schemas/SubmodelElement"
++          DataElement: "#/components/schemas/SubmodelElement"
++          EventElement: "#/components/schemas/SubmodelElement"

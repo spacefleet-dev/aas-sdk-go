@@ -1379,7 +1379,7 @@ type ApiShellRepoGetSubmodelsFromShellRequest struct {
 	aasId      string
 }
 
-func (r ApiShellRepoGetSubmodelsFromShellRequest) Execute() (*Result, *http.Response, error) {
+func (r ApiShellRepoGetSubmodelsFromShellRequest) Execute() ([]ISubmodelElement, *http.Response, error) {
 	return r.ApiService.ShellRepoGetSubmodelsFromShellExecute(r)
 }
 
@@ -1400,13 +1400,13 @@ func (a *AssetAdministrationShellRepositoryApiService) ShellRepoGetSubmodelsFrom
 
 // Execute executes the request
 //
-//	@return Result
-func (a *AssetAdministrationShellRepositoryApiService) ShellRepoGetSubmodelsFromShellExecute(r ApiShellRepoGetSubmodelsFromShellRequest) (*Result, *http.Response, error) {
+//	@return []ISubmodelElement
+func (a *AssetAdministrationShellRepositoryApiService) ShellRepoGetSubmodelsFromShellExecute(r ApiShellRepoGetSubmodelsFromShellRequest) ([]ISubmodelElement, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Result
+		localVarReturnValue []ISubmodelElement
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AssetAdministrationShellRepositoryApiService.ShellRepoGetSubmodelsFromShell")

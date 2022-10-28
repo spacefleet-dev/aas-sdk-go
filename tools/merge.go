@@ -78,6 +78,9 @@ func run(modelsFile, apiFile string) error {
 		set(api, "components.schemas."+komp, schema)
 	}
 
+	// override the incorrect return type
+	set(api, "paths./shells/{aasId}/aas/submodels.get.responses.200.content.application/json.schema", map[string]any{"type": "array", "items": map[string]any{"$ref": "#/components/schemas/ISubmodelElement"}})
+
 	y, err := yaml.Marshal(api)
 	if err != nil {
 		return err
@@ -142,17 +145,15 @@ func set(obj any, path string, value any) bool {
 		index, err := strconv.Atoi(p)
 		if err == nil {
 			a, ok := last.([]any)
-			if !ok || index >= len(a) {
-				return false
-			}
+			if ok && index < len(a) {
+				if isLast {
+					a[index] = value
+					break
+				}
 
-			if isLast {
-				a[index] = value
-				break
+				last = a[index]
+				continue
 			}
-
-			last = a[index]
-			continue
 		}
 
 		m, ok := last.(map[string]any)

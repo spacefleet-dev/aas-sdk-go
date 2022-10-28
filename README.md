@@ -1,5 +1,7 @@
 # AAS SDK Go
 
+[![Go Docs](https://pkg.go.dev/badge/github.com/spacefleet-dev/aas-sdk-go.svg)](https://pkg.go.dev/github.com/spacefleet-dev/aas-sdk-go)
+
 
 # LICENSE
 

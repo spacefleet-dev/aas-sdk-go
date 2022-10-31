@@ -50,29 +50,37 @@ func run(modelsFile, apiFile string) error {
 			continue
 		}
 
-		arrayValue, ok := get[string](schema, "properties.value.items.$ref")
-		if ok && arrayValue == "#/components/schemas/SubmodelElement" {
+		submodelElemetArray, ok := get[string](schema, "properties.value.items.$ref")
+		if ok && submodelElemetArray == "#/components/schemas/SubmodelElement" {
 			set(schema, "properties.value.items.$ref", "#/components/schemas/ISubmodelElement")
 		}
 
-		arrayValue, ok = get[string](schema, "allOf[1].properties.value.items.$ref")
-		if ok && arrayValue == "#/components/schemas/SubmodelElement" {
+		submodelElemetArray, ok = get[string](schema, "allOf[1].properties.value.items.$ref")
+		if ok && submodelElemetArray == "#/components/schemas/SubmodelElement" {
 			set(schema, "allOf[1].properties.value.items.$ref", "#/components/schemas/ISubmodelElement")
 		}
 
-		arrayValue, ok = get[string](schema, "allOf[1].properties.annotations.items.$ref")
-		if ok && arrayValue == "#/components/schemas/DataElement" {
-			set(schema, "allOf[1].properties.annotations.items.$ref", "#/components/schemas/ISubmodelElement")
-		}
-
-		arrayValue, ok = get[string](schema, "allOf[5].properties.submodelElements.items.$ref")
-		if ok && arrayValue == "#/components/schemas/SubmodelElement" {
+		submodelElemetArray, ok = get[string](schema, "allOf[5].properties.submodelElements.items.$ref")
+		if ok && submodelElemetArray == "#/components/schemas/SubmodelElement" {
 			set(schema, "allOf[5].properties.submodelElements.items.$ref", "#/components/schemas/ISubmodelElement")
 		}
 
-		valRef, ok := get[string](schema, "properties.value.$ref")
-		if ok && valRef == "#/components/schemas/SubmodelElement" {
+		renameDataElementToSubmodelElement, ok := get[string](schema, "allOf[1].properties.annotations.items.$ref")
+		if ok && renameDataElementToSubmodelElement == "#/components/schemas/DataElement" {
+			set(schema, "allOf[1].properties.annotations.items.$ref", "#/components/schemas/ISubmodelElement")
+		}
+
+		renameSubmodelElementToISubmodelElement, ok := get[string](schema, "properties.value.$ref")
+		if ok && renameSubmodelElementToISubmodelElement == "#/components/schemas/SubmodelElement" {
 			set(schema, "properties.value.$ref", "#/components/schemas/ISubmodelElement")
+		}
+
+		if komp == "AssetAdministrationShell" {
+			props, ok := get[map[string]any](schema, "allOf[2].properties")
+			if ok {
+				props["asset"] = map[string]any{"$ref": "#/components/schemas/Reference"}
+				set(schema, "allOf[2].properties", props)
+			}
 		}
 
 		set(api, "components.schemas."+komp, schema)

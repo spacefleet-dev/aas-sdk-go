@@ -27,6 +27,7 @@ type AssetAdministrationShell struct {
 	Administration             *AdministrativeInformation  `json:"administration,omitempty"`
 	Identification             Identifier                  `json:"identification"`
 	EmbeddedDataSpecifications []EmbeddedDataSpecification `json:"embeddedDataSpecifications,omitempty"`
+	Asset                      *Reference                  `json:"asset,omitempty"`
 	AssetInformation           AssetInformation            `json:"assetInformation"`
 	DerivedFrom                *Reference                  `json:"derivedFrom,omitempty"`
 	Submodels                  []Reference                 `json:"submodels,omitempty"`
@@ -356,6 +357,38 @@ func (o *AssetAdministrationShell) SetEmbeddedDataSpecifications(v []EmbeddedDat
 	o.EmbeddedDataSpecifications = v
 }
 
+// GetAsset returns the Asset field value if set, zero value otherwise.
+func (o *AssetAdministrationShell) GetAsset() Reference {
+	if o == nil || o.Asset == nil {
+		var ret Reference
+		return ret
+	}
+	return *o.Asset
+}
+
+// GetAssetOk returns a tuple with the Asset field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AssetAdministrationShell) GetAssetOk() (*Reference, bool) {
+	if o == nil || o.Asset == nil {
+		return nil, false
+	}
+	return o.Asset, true
+}
+
+// HasAsset returns a boolean if a field has been set.
+func (o *AssetAdministrationShell) HasAsset() bool {
+	if o != nil && o.Asset != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAsset gets a reference to the given Reference and assigns it to the Asset field.
+func (o *AssetAdministrationShell) SetAsset(v Reference) {
+	o.Asset = &v
+}
+
 // GetAssetInformation returns the AssetInformation field value
 func (o *AssetAdministrationShell) GetAssetInformation() AssetInformation {
 	if o == nil {
@@ -475,6 +508,9 @@ func (o AssetAdministrationShell) MarshalJSON() ([]byte, error) {
 	}
 	if o.EmbeddedDataSpecifications != nil {
 		toSerialize["embeddedDataSpecifications"] = o.EmbeddedDataSpecifications
+	}
+	if o.Asset != nil {
+		toSerialize["asset"] = o.Asset
 	}
 	if true {
 		toSerialize["assetInformation"] = o.AssetInformation

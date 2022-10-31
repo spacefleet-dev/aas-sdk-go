@@ -17,6 +17,7 @@ import (
 
 // AssetAdministrationShellAllOf struct for AssetAdministrationShellAllOf
 type AssetAdministrationShellAllOf struct {
+	Asset            *Reference       `json:"asset,omitempty"`
 	AssetInformation AssetInformation `json:"assetInformation"`
 	DerivedFrom      *Reference       `json:"derivedFrom,omitempty"`
 	Submodels        []Reference      `json:"submodels,omitempty"`
@@ -38,6 +39,38 @@ func NewAssetAdministrationShellAllOf(assetInformation AssetInformation) *AssetA
 func NewAssetAdministrationShellAllOfWithDefaults() *AssetAdministrationShellAllOf {
 	this := AssetAdministrationShellAllOf{}
 	return &this
+}
+
+// GetAsset returns the Asset field value if set, zero value otherwise.
+func (o *AssetAdministrationShellAllOf) GetAsset() Reference {
+	if o == nil || o.Asset == nil {
+		var ret Reference
+		return ret
+	}
+	return *o.Asset
+}
+
+// GetAssetOk returns a tuple with the Asset field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AssetAdministrationShellAllOf) GetAssetOk() (*Reference, bool) {
+	if o == nil || o.Asset == nil {
+		return nil, false
+	}
+	return o.Asset, true
+}
+
+// HasAsset returns a boolean if a field has been set.
+func (o *AssetAdministrationShellAllOf) HasAsset() bool {
+	if o != nil && o.Asset != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAsset gets a reference to the given Reference and assigns it to the Asset field.
+func (o *AssetAdministrationShellAllOf) SetAsset(v Reference) {
+	o.Asset = &v
 }
 
 // GetAssetInformation returns the AssetInformation field value
@@ -130,6 +163,9 @@ func (o *AssetAdministrationShellAllOf) SetSubmodels(v []Reference) {
 
 func (o AssetAdministrationShellAllOf) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.Asset != nil {
+		toSerialize["asset"] = o.Asset
+	}
 	if true {
 		toSerialize["assetInformation"] = o.AssetInformation
 	}

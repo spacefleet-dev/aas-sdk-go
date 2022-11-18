@@ -87,7 +87,7 @@ func run(modelsFile, apiFile string) error {
 	}
 
 	// override the incorrect return type
-	set(api, "paths./shells/{aasId}/aas/submodels.get.responses.200.content.application/json.schema", map[string]any{"type": "array", "items": map[string]any{"$ref": "#/components/schemas/ISubmodelElement"}})
+	set(api, "paths./shells/{aasId}/aas/submodels.get.responses.200.content.application/json.schema", map[string]any{"type": "array", "items": map[string]any{"$ref": "#/components/schemas/Submodel"}})
 
 	y, err := yaml.Marshal(api)
 	if err != nil {
